@@ -44,50 +44,10 @@ Get a free API key at [aistudio.google.com](https://aistudio.google.com)
 
 ---
 
-## Usage
-
-```bash
-python main.py
-```
-
-You will be prompted to enter the path to your document:
-```
-Enter the path to your document: docs/yourfile.pdf
-```
-
-Then start asking questions:
-```
-You: What is the main argument of this document?
-Agent: ...
-
-You: Summarize the second section
-Agent: ...
-
-You: quit
-```
-
-Type `quit` to exit.
-
----
-
 ## Supported File Types
 
 - `.pdf`
 - `.txt`
-
----
-
-## Important Notes
-
-- Each time you load a new document, the previous document's data is cleared from ChromaDB automatically
-- Your API key is never hardcoded — it lives only in your `.env` file
-- The `chroma_store/` folder is created automatically on first run
-
----
-
-## What I Learned Building This
-
-This was my first real Python project. I learned how embeddings work, how vector databases store and retrieve meaning, and how RAG systems are structured. Every bug — especially the ChromaDB data pollution issue — taught me something a tutorial never could.
 
 ---
 
