@@ -1,34 +1,20 @@
 import dotenv
-import os
-from google import genai
 from core.loaderr import load_and_chunk
-from core.embeder import embed_chunks
-
+from core.embeder import embed_chunks, store_embeddings
+from core.chat import ask
 
 dotenv.load_dotenv()
 
-client = genai.Client()
-
-response = client.models.generate_content(
-    model="gemini-2.5-flash",
-    contents="Hello, are you working?"
-)
-
-print(response.text)
-
-# chunks = load_and_chunk("docs/myFile.txt")
-# print(chunks[0])
-# print("---")
-
-chunks = load_and_chunk("docs/myFile.txt")
+# Run these two lines only once to load your document
+filepath = input("Enter the path to your document: ")
+chunks = load_and_chunk(filepath)
 embedded = embed_chunks(chunks)
+store_embeddings(embedded)
 
-print(f"Number of embedded chunks: {len(embedded)}")
-print(f"First chunk text: {embedded[0]['text'][:100]}")
-print(f"Embedding length: {len(embedded[0]['embedding'])}")
-print(type(embedded[0]['embedding']))
-print(embedded[0]['embedding'])
-
-
-
-
+# Chat loop
+while True:
+    question = input("You: ")
+    if question.lower() == "quit":
+        break
+    answer = ask(question)
+    print(f"Agent: {answer}\n")

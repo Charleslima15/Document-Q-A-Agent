@@ -1,12 +1,20 @@
-
 from pathlib import Path
-
-
-
+import pymupdf
 
 def load_and_chunk(filepath, chunk_size=500):
-    with open(filepath, "r", encoding="utf-8") as f:
-        text = f.read()
+    filepath = Path(filepath)
+    
+    if filepath.suffix == ".txt":
+        with open(filepath, "r", encoding="utf-8") as f:
+            text = f.read()
+    elif filepath.suffix == ".pdf":
+        text = ""
+        doc = pymupdf.open(filepath)
+        for page in doc:
+            text += page.get_text()
+        doc.close()
+    else:
+        raise ValueError(f"Unsupported file type: {filepath.suffix}")
     
     words = text.split()
     chunks = []
