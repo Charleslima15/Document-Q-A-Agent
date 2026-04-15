@@ -10,19 +10,6 @@ You point it at a document. It reads it, understands it, and lets you have a con
 
 ---
 
-## How It Works
-
-1. The document is split into small chunks of text
-2. Each chunk is converted into a vector (embedding) using Gemini's embedding model
-3. The vectors are stored locally in ChromaDB — a vector database
-4. When you ask a question, the question is also converted into a vector
-5. ChromaDB finds the chunks whose meaning is closest to your question
-6. Those chunks are sent to Gemini along with your question to generate an answer
-
-This is the same architecture used in enterprise AI document tools — built from scratch.
-
----
-
 ## Tech Stack
 
 - **Python 3.10+**
@@ -30,23 +17,6 @@ This is the same architecture used in enterprise AI document tools — built fro
 - **ChromaDB** — local vector database
 - **PyMuPDF** — PDF text extraction
 - **python-dotenv** — environment variable management
-
----
-
-## Project Structure
-
-```
-doc_agent/
-│
-├── docs/              # Put your PDF or TXT files here
-├── core/
-│   ├── loader.py      # Loads and chunks documents
-│   ├── embedder.py    # Embeds chunks and stores/retrieves from ChromaDB
-│   └── chat.py        # Handles conversation with Gemini
-├── main.py            # Entry point
-├── requirements.txt
-└── .env               # Your API key (never commit this)
-```
 
 ---
 
